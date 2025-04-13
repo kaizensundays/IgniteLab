@@ -22,7 +22,7 @@
         <spring-cloud.version>2021.0.8</spring-cloud.version>
         <jackson.version>2.13.5</jackson.version>
         <jackson.databind.version>2.13.5</jackson.databind.version>
-        <ignite.version>2.16.0</ignite.version>
+        <ignite.version>2.17.0</ignite.version>
     </properties>
 
     <modules>
