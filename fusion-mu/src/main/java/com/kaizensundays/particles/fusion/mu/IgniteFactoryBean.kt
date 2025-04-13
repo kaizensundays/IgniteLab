@@ -7,8 +7,8 @@ import org.apache.ignite.configuration.IgniteConfiguration
 import org.springframework.beans.factory.FactoryBean
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
-import javax.annotation.PostConstruct
-import javax.annotation.PreDestroy
+import jakarta.annotation.PostConstruct
+import jakarta.annotation.PreDestroy
 
 /**
  * Created: Saturday 10/23/2021, 1:28 PM Eastern Time

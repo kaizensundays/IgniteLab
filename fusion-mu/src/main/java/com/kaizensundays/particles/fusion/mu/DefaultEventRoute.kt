@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
-import javax.annotation.PostConstruct
+import jakarta.annotation.PostConstruct
 
 /**
  * Created: Sunday 3/5/2023, 11:24 AM Eastern Time

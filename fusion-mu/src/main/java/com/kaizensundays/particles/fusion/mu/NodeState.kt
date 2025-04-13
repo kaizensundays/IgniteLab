@@ -8,7 +8,7 @@ import org.apache.ignite.lang.IgnitePredicate
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.concurrent.atomic.AtomicBoolean
-import javax.annotation.PostConstruct
+import jakarta.annotation.PostConstruct
 
 /**
  * Created: Monday 2/20/2023, 12:10 PM Eastern Time
