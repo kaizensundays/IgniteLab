@@ -16,6 +16,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
+import org.springframework.context.annotation.ImportResource
 import org.springframework.core.Ordered
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping
@@ -32,6 +33,7 @@ import javax.sql.DataSource
 @Configuration
 @EnableAutoConfiguration
 @Import(IgniteContext::class, JournalContext::class)
+@ImportResource("classpath:service-config.xml")
 open class ServiceContext {
 
     @Value("\${pg.url}")

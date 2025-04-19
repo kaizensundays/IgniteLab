@@ -1,5 +1,6 @@
 package com.kaizensundays.particles.fusion.mu
 
+import com.kaizensundays.ignite.quorum.DefaultTopologyValidator
 import com.kaizensundays.particles.fusion.mu.dao.FindFlightDao
 import com.kaizensundays.particles.fusion.mu.messages.FindFlight
 import org.apache.ignite.cache.CacheAtomicityMode
@@ -10,6 +11,7 @@ import org.apache.ignite.events.EventType
 import org.apache.ignite.logger.slf4j.Slf4jLogger
 import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi
 import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.util.concurrent.TimeUnit
@@ -28,8 +30,8 @@ open class IgniteContext {
     open fun findFlightCacheStore(dao: FindFlightDao) = FindFlightCacheStore(dao)
 
     @Bean
-    open fun topologyValidator(): TopologyValidator {
-        return DefaultTopologyValidator()
+    open fun topologyValidator(@Value("\${cluster.quorum}") quorum: Int): TopologyValidator {
+        return DefaultTopologyValidator(quorum)
     }
 
     @Bean
