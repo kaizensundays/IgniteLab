@@ -40,6 +40,7 @@ set JAVA_OPTS= ^
 )
 
 start "Node" %JAVA_HOME%/bin/java -Xmx256m ^
+	-Dproperties=node.yaml ^
 	-Dlogging.config=log4j2-1.xml ^
 	-Dlog4j.shutdownHookEnabled=false ^
 	-Dserver.port=7702 ^

@@ -52,10 +52,6 @@ class IgniteCacheStoreIntegrationTest : MuTestSupport() {
 
     }
 
-    //@Test
-    fun test() {
-    }
-
     @Test
     fun loadCache() {
 

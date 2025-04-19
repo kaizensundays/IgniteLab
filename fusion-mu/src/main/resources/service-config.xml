@@ -5,7 +5,7 @@
        default-lazy-init="true">
 
     <bean id="yamlProperties" class="org.springframework.beans.factory.config.YamlPropertiesFactoryBean"
-          p:resources="file:#{systemProperties['properties'] != null ? systemProperties['properties'] : 'service.properties'}"
+          p:resources="#{systemProperties['properties'] != null ? 'file:' + systemProperties['properties'] : 'classpath:node.yaml'}"
     />
 
     <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer"
