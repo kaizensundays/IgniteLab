@@ -85,6 +85,12 @@
             <artifactId>h2</artifactId>
         </dependency>
 
+        <!-- ArchUnit -->
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit</artifactId>
+        </dependency>
+
     </dependencies>
 
     <properties>
