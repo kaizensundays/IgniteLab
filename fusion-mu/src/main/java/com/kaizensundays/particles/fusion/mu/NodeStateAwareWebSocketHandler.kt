@@ -1,5 +1,6 @@
 package com.kaizensundays.particles.fusion.mu
 
+import com.kaizensundays.ignite.quorum.NodeStateListener
 import org.reactivestreams.Subscription
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

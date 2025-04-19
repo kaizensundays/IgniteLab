@@ -1,4 +1,4 @@
-package com.kaizensundays.particles.fusion.mu
+package com.kaizensundays.ignite.quorum
 
 import org.apache.ignite.Ignite
 import org.junit.Test

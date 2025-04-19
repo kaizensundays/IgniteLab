@@ -1,4 +1,4 @@
-package com.kaizensundays.particles.fusion.mu
+package com.kaizensundays.ignite.quorum
 
 import jakarta.annotation.PostConstruct
 import org.apache.ignite.Ignite

@@ -1,5 +1,6 @@
 package com.kaizensundays.particles.fusion.mu
 
+import com.kaizensundays.ignite.quorum.NodeState
 import com.kaizensundays.particles.fusion.mu.dao.FindFlightDao
 import com.kaizensundays.particles.fusion.mu.dao.FindFlightLoader
 import com.kaizensundays.particles.fusion.mu.dao.JournalDao
