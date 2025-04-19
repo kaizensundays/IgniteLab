@@ -124,8 +124,8 @@ open class ServiceContext {
     }
 
     @Bean
-    open fun nodeState(ignite: Ignite, frontEndWebSocketHandler: FrontEndWebSocketHandler): NodeState {
-        val nodeState = NodeState(ignite)
+    open fun nodeState(@Value("\${cluster.quorum}") quorum: Int, ignite: Ignite, frontEndWebSocketHandler: FrontEndWebSocketHandler): NodeState {
+        val nodeState = NodeState(quorum, ignite)
         nodeState.nodeStateListeners.add(frontEndWebSocketHandler)
         val events = ignite.events()
         events.localListen(nodeState, *EventType.EVTS_DISCOVERY)

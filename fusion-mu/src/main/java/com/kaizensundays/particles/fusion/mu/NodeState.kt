@@ -1,5 +1,6 @@
 package com.kaizensundays.particles.fusion.mu
 
+import jakarta.annotation.PostConstruct
 import org.apache.ignite.Ignite
 import org.apache.ignite.cluster.ClusterNode
 import org.apache.ignite.events.DiscoveryEvent
@@ -8,14 +9,13 @@ import org.apache.ignite.lang.IgnitePredicate
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.concurrent.atomic.AtomicBoolean
-import jakarta.annotation.PostConstruct
 
 /**
  * Created: Monday 2/20/2023, 12:10 PM Eastern Time
  *
  * @author Sergey Chuykov
  */
-class NodeState(private val ignite: Ignite) : IgnitePredicate<Event>, NodeStateListener {
+class NodeState(val quorum: Int, val ignite: Ignite) : IgnitePredicate<Event>, NodeStateListener {
 
     private val logger: Logger = LoggerFactory.getLogger(javaClass)
 
@@ -60,11 +60,7 @@ class NodeState(private val ignite: Ignite) : IgnitePredicate<Event>, NodeStateL
 
     fun isActive(nodes: Collection<ClusterNode>): Boolean {
 
-        val votes = nodes.sumOf { node -> votes(node) }
-
-        val quorum = quorum(nodes)
-
-        return votes > 0 && quorum > 0 && votes >= quorum
+        return nodes.size >= quorum
     }
 
     private fun print(nodes: Collection<ClusterNode>) {
