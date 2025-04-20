@@ -5,6 +5,7 @@ import org.apache.ignite.Ignite
 import org.apache.ignite.cluster.ClusterNode
 import org.apache.ignite.events.DiscoveryEvent
 import org.apache.ignite.events.Event
+import org.apache.ignite.events.EventType
 import org.apache.ignite.lang.IgnitePredicate
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -19,43 +20,21 @@ class NodeState(val quorum: Int, val ignite: Ignite) : IgnitePredicate<Event>, N
 
     private val logger: Logger = LoggerFactory.getLogger(javaClass)
 
-    companion object {
-        const val CLUSTER_VOTES_PROP = "cluster.votes"
-        const val CLUSTER_QUORUM_PROP = "cluster.quorum"
-    }
-
     private val active = AtomicBoolean(false)
 
-    val nodeStateListeners = mutableListOf<NodeStateListener>()
+    private val nodeStateListeners = mutableListOf<NodeStateListener>()
+
+    fun addListener(listener: NodeStateListener) {
+        nodeStateListeners.add(listener)
+    }
 
     override fun onStateChange(active: Boolean) {
 
-        this.active.set(active)
-
         logger.info("Node is active: $active")
 
-        nodeStateListeners.forEach { listener -> listener.onStateChange(active) }
-    }
-
-    fun getIntAttribute(node: ClusterNode, name: String, default: Int): Int {
-        return node.attribute<String>(name)?.toInt() ?: default
-    }
-
-    fun votes(node: ClusterNode): Int {
-        return getIntAttribute(node, CLUSTER_VOTES_PROP, 0)
-    }
-
-    fun quorum(node: ClusterNode): Int {
-        return getIntAttribute(node, CLUSTER_QUORUM_PROP, 0)
-    }
-
-    fun quorum(nodes: Collection<ClusterNode>): Int {
-
-        val set = nodes.map { node -> quorum(node) }.toSet()
-
-        require(set.size == 1) { "Configuration error" }
-
-        return set.first()
+        if (this.active.getAndSet(active) != active) {
+            nodeStateListeners.forEach { listener -> listener.onStateChange(active) }
+        }
     }
 
     fun isActive(nodes: Collection<ClusterNode>): Boolean {
@@ -65,9 +44,8 @@ class NodeState(val quorum: Int, val ignite: Ignite) : IgnitePredicate<Event>, N
 
     private fun print(nodes: Collection<ClusterNode>) {
         nodes.forEach { node ->
-            val votes = votes(node)
             val id = node.id().toString()
-            logger.info("{}:{}", id, votes)
+            logger.info("{}", id)
         }
     }
 
@@ -90,6 +68,8 @@ class NodeState(val quorum: Int, val ignite: Ignite) : IgnitePredicate<Event>, N
 
     @PostConstruct
     fun start() {
+
+        ignite.events().localListen(this, *EventType.EVTS_DISCOVERY)
 
         val nodes = ignite.cluster().forServers().nodes()
 

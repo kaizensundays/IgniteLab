@@ -11,7 +11,6 @@ import com.kaizensundays.particles.fusion.mu.messages.Journal
 import com.zaxxer.hikari.HikariDataSource
 import org.apache.ignite.Ignite
 import org.apache.ignite.IgniteCache
-import org.apache.ignite.events.EventType
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.context.annotation.Bean
@@ -127,9 +126,7 @@ open class ServiceContext {
     @Bean
     open fun nodeState(@Value("\${cluster.quorum}") quorum: Int, ignite: Ignite, frontEndWebSocketHandler: FrontEndWebSocketHandler): NodeState {
         val nodeState = NodeState(quorum, ignite)
-        nodeState.nodeStateListeners.add(frontEndWebSocketHandler)
-        val events = ignite.events()
-        events.localListen(nodeState, *EventType.EVTS_DISCOVERY)
+        nodeState.addListener(frontEndWebSocketHandler)
         return nodeState
     }
 
