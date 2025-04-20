@@ -1,9 +1,6 @@
 package com.kaizensundays.flights.service
 
-import com.kaizensundays.particles.fusion.mu.CacheName
-import com.kaizensundays.particles.fusion.mu.Flights
-import com.kaizensundays.particles.fusion.mu.MuTestSupport
-import com.kaizensundays.particles.fusion.mu.messages.FindFlight
+import com.kaizensundays.flights.service.messages.FindFlight
 import org.apache.ignite.Ignition
 import org.apache.ignite.configuration.ClientConfiguration
 import org.junit.Before
