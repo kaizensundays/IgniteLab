@@ -6,6 +6,8 @@ import com.kaizensundays.particles.fusion.mu.messages.Flight
 import org.springframework.core.io.ClassPathResource
 import org.springframework.util.FileCopyUtils
 import java.io.InputStreamReader
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 /**
  * Created: Saturday 10/30/2021, 2:03 PM Eastern Time
@@ -29,6 +31,16 @@ object Flights {
             .replace(" {4}\"".toRegex(), "      \"")
             .replace(" {2}}".toRegex(), "    }")
             .replace(" ]".toRegex(), "\r\n  ]")
+    }
+
+    private var localDateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
+    fun String.parseLocalDate(): LocalDate {
+        return LocalDate.parse(this, localDateFormatter)
+    }
+
+    fun LocalDate.format(): String {
+        return localDateFormatter.format(this)
     }
 
 }

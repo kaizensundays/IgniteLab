@@ -1,5 +1,6 @@
 package com.kaizensundays.particles.fusion.mu.dao
 
+import com.kaizensundays.particles.fusion.mu.Flights.parseLocalDate
 import com.kaizensundays.particles.fusion.mu.messages.FindFlight
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -34,8 +35,8 @@ class FindFlightDao(private val jdbc: NamedParameterJdbcTemplate) {
             "ip" to entity.ip,
             "init" to entity.from,
             "dest" to entity.to,
-            "depart" to entity.depart,
-            "goback" to entity.goback,
+            "depart" to entity.depart.parseLocalDate(),
+            "goback" to entity.goback.parseLocalDate(),
             "updated" to Date()
         )
 

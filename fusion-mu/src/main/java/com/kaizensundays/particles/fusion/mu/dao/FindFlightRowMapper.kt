@@ -1,5 +1,6 @@
 package com.kaizensundays.particles.fusion.mu.dao
 
+import com.kaizensundays.particles.fusion.mu.Flights.format
 import com.kaizensundays.particles.fusion.mu.messages.FindFlight
 import org.springframework.jdbc.core.RowMapper
 import java.sql.Date
@@ -25,8 +26,8 @@ class FindFlightRowMapper : RowMapper<FindFlight> {
             rs.getString("ip"),
             rs.getString("init"),
             rs.getString("dest"),
-            toLocalDate(rs.getDate("depart")),
-            toLocalDate(rs.getDate("goback")),
+            toLocalDate(rs.getDate("depart")).format(),
+            toLocalDate(rs.getDate("goback")).format(),
             rs.getString("uuid"),
         )
     }

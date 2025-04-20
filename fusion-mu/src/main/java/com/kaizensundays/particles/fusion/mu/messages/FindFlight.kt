@@ -1,6 +1,6 @@
 package com.kaizensundays.particles.fusion.mu.messages
 
-import java.time.LocalDate
+import java.io.Serializable
 
 /**
  * Created: Sunday 10/10/2021, 1:47 PM Eastern Time
@@ -12,7 +12,7 @@ data class FindFlight(
         val ip: String,
         val from: String,
         val to: String,
-        val depart: LocalDate,
-        val goback: LocalDate,
+        val depart: String,
+        val goback: String,
         var uuid: String = ""
-) : Event
+) : Event, Serializable
