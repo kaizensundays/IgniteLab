@@ -1,7 +1,7 @@
 {
   "LAX-LAS": [
     {
-      "@class": "com.kaizensundays.particles.fusion.mu.messages.Flight",
+      "@class": "com.kaizensundays.flights.service.messages.Flight",
       "code": "AA2002",
       "airline": "AA",
       "price": 128.0,
@@ -9,7 +9,7 @@
       "arrival": 826
     },
     {
-      "@class": "com.kaizensundays.particles.fusion.mu.messages.Flight",
+      "@class": "com.kaizensundays.flights.service.messages.Flight",
       "code": "UA2125",
       "airline": "UA",
       "price": 133.0,
@@ -19,7 +19,7 @@
   ],
   "LAX-PHX": [
     {
-      "@class": "com.kaizensundays.particles.fusion.mu.messages.Flight",
+      "@class": "com.kaizensundays.flights.service.messages.Flight",
       "code": "AA767",
       "airline": "AA",
       "price": 177.0,
@@ -27,7 +27,7 @@
       "arrival": 1418
     },
     {
-      "@class": "com.kaizensundays.particles.fusion.mu.messages.Flight",
+      "@class": "com.kaizensundays.flights.service.messages.Flight",
       "code": "UA5411",
       "airline": "UA",
       "price": 182.0,

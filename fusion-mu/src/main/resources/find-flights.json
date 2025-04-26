@@ -1,7 +1,7 @@
 {
   "requests": [
     {
-      "@class": "com.kaizensundays.particles.fusion.mu.messages.FindFlight",
+      "@class": "com.kaizensundays.flights.service.messages.FindFlight",
       "user": "?",
       "ip": "localhost",
       "from": "LAX",
@@ -11,7 +11,7 @@
       "uuid": "7de066d6-f526-4c07-a1b2-21c50aaa9c60"
     },
     {
-      "@class": "com.kaizensundays.particles.fusion.mu.messages.FindFlight",
+      "@class": "com.kaizensundays.flights.service.messages.FindFlight",
       "user": "?",
       "ip": "localhost",
       "from": "LAX",
@@ -21,7 +21,7 @@
       "uuid": "25029ccd-4034-467e-8aac-d4149d0f83b2"
     },
     {
-      "@class": "com.kaizensundays.particles.fusion.mu.messages.FindFlight",
+      "@class": "com.kaizensundays.flights.service.messages.FindFlight",
       "user": "?",
       "ip": "localhost",
       "from": "LAX",

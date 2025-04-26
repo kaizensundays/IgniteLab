@@ -1,0 +1,2 @@
+cluster:
+  quorum: 2
