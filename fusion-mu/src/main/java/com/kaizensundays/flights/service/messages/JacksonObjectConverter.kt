@@ -24,7 +24,7 @@ class JacksonObjectConverter<T : JacksonSerializable>(
     init {
         jackson.registerModule(
             SimpleModule()
-                .addSerializer(LocalDate::class.java, com.kaizensundays.flights.service.messages.LocalDateSerializer())
+                .addSerializer(LocalDate::class.java, LocalDateSerializer())
                 .addDeserializer(LocalDate::class.java, LocalDateDeserializer())
         )
         jackson.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)

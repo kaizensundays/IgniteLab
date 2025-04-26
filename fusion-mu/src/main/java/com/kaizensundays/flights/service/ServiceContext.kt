@@ -3,7 +3,6 @@ package com.kaizensundays.flights.service
 import com.kaizensundays.ignite.quorum.NodeState
 import com.kaizensundays.flights.service.dao.FindFlightDao
 import com.kaizensundays.flights.service.dao.FindFlightLoader
-import com.kaizensundays.flights.service.dao.JournalDao
 import com.kaizensundays.flights.service.messages.AddAirline
 import com.kaizensundays.flights.service.messages.Event
 import com.kaizensundays.flights.service.messages.FindFlight
@@ -33,7 +32,7 @@ import javax.sql.DataSource
 @Configuration
 @EnableAutoConfiguration
 @Import(IgniteContext::class, JournalContext::class)
-@ImportResource("service-config.xml")
+@ImportResource("classpath:service-config.xml")
 open class ServiceContext {
 
     @Value("\${pg.url}")
@@ -118,9 +117,9 @@ open class ServiceContext {
     }
 
     @Bean
-    open fun defaultEventRoute(journalH2Dao: JournalDao, messageQueue: BlockingQueue<Journal>, journalManager: JournalManager, handlers: Map<Class<out Event>, Handler<Event>>): DefaultEventRoute {
+    open fun defaultEventRoute(messageQueue: BlockingQueue<Journal>, journalManager: JournalManager, handlers: Map<Class<out Event>, Handler<Event>>): DefaultEventRoute {
         journalManager.messageQueue = messageQueue
-        return DefaultEventRoute(journalH2Dao, messageQueue, journalManager, handlers)
+        return DefaultEventRoute(messageQueue, journalManager, handlers)
     }
 
     @Bean

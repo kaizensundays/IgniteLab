@@ -1,6 +1,5 @@
 package com.kaizensundays.flights.service
 
-import com.kaizensundays.flights.service.dao.JournalDao
 import com.kaizensundays.flights.service.messages.Event
 import com.kaizensundays.flights.service.messages.JacksonObjectConverter
 import com.kaizensundays.flights.service.messages.Journal
@@ -21,7 +20,6 @@ import jakarta.annotation.PostConstruct
  * @author Sergey Chuykov
  */
 class DefaultEventRoute(
-    private val journalDao: JournalDao,
     private val messageQueue: BlockingQueue<Journal>,
     private val journalManager: JournalManager,
     private val handlers: Map<Class<out Event>, Handler<Event>>
