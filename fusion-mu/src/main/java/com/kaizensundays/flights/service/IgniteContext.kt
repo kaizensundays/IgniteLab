@@ -42,8 +42,8 @@ open class IgniteContext {
             .setDiscoverySpi(
                 TcpDiscoverySpi()
                     .setLocalPort(47701)
-                    .setLocalPortRange(2)
-                    .setIpFinder(TcpDiscoveryVmIpFinder().setAddresses(listOf("127.0.0.1:47701..47702")))
+                    .setLocalPortRange(5)
+                    .setIpFinder(TcpDiscoveryVmIpFinder().setAddresses(listOf("127.0.0.1:47701..47705")))
             )
             .setCacheConfiguration(
                 CacheConfiguration<String, FindFlight>()
