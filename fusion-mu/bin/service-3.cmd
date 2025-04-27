@@ -4,13 +4,15 @@ set JAVA_HOME=%JAVA_17_HOME%
 
 set IGNITE_UPDATE_NOTIFIER=false
 
-set IGNITE_WORK_DIR=%cd%\ignite\node1
+set IGNITE_WORK_DIR=%cd%\ignite\node3
 
 echo "IGNITE_WORK_DIR=%IGNITE_WORK_DIR%"
 
 set IGNITE_SKIP_CONFIGURATION_CONSISTENCY_CHECK=true
 
 if "%JAVA_HOME%"=="%JAVA_17_HOME%" (
+
+echo "Ok"
 
 set JAVA_OPTS= ^
  --add-opens=java.base/jdk.internal.access=ALL-UNNAMED ^
@@ -41,9 +43,9 @@ set JAVA_OPTS= ^
 
 start "Node" %JAVA_HOME%/bin/java -Xmx256m ^
 	-Dproperties=node.yaml ^
-	-Dlogging.config=log4j2-1.xml ^
+	-Dlogging.config=log4j2-3.xml ^
 	-Dlog4j.shutdownHookEnabled=false ^
-	-Dserver.port=7701 ^
+	-Dserver.port=7703 ^
         -Dspring.profiles.active=dev ^
 	-Djava.net.preferIPv4Stack=true ^
 	-Dreactor.netty.ioWorkerCount=4 ^
