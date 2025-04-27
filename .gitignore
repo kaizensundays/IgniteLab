@@ -2,9 +2,10 @@
 .idea
 .tests
 
+/ignite/
+
 target
 h2
-ignite
 
 *.iml
 *.log
