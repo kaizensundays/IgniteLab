@@ -1,2 +1,6 @@
 cluster:
   quorum: 2
+
+node:
+  tcpDiscoveryAddresses:
+    - localhost:47701..47705

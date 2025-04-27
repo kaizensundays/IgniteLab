@@ -1,17 +1,19 @@
 package com.kaizensundays.flights.service
 
-import com.kaizensundays.ignite.quorum.NodeState
 import com.kaizensundays.flights.service.dao.FindFlightDao
 import com.kaizensundays.flights.service.dao.FindFlightLoader
 import com.kaizensundays.flights.service.messages.AddAirline
 import com.kaizensundays.flights.service.messages.Event
 import com.kaizensundays.flights.service.messages.FindFlight
 import com.kaizensundays.flights.service.messages.Journal
+import com.kaizensundays.ignite.quorum.NodeState
 import com.zaxxer.hikari.HikariDataSource
 import org.apache.ignite.Ignite
 import org.apache.ignite.IgniteCache
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
@@ -31,8 +33,9 @@ import javax.sql.DataSource
  */
 @Configuration
 @EnableAutoConfiguration
-@Import(IgniteContext::class, JournalContext::class)
 @ImportResource("classpath:service-config.xml")
+@EnableConfigurationProperties(NodeProperties::class)
+@Import(IgniteContext::class, JournalContext::class)
 open class ServiceContext {
 
     @Value("\${pg.url}")

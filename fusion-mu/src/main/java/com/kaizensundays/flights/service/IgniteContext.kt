@@ -35,7 +35,7 @@ open class IgniteContext {
     }
 
     @Bean
-    open fun ignite(findFlightCacheStore: FindFlightCacheStore, topologyValidator: TopologyValidator): IgniteFactoryBean {
+    open fun ignite(findFlightCacheStore: FindFlightCacheStore, topologyValidator: TopologyValidator, props: NodeProperties): IgniteFactoryBean {
 
         val configuration = IgniteConfiguration()
             .setGridLogger(Slf4jLogger())
@@ -43,12 +43,7 @@ open class IgniteContext {
                 TcpDiscoverySpi()
                     .setLocalPort(47701)
                     .setLocalPortRange(5)
-                    .setIpFinder(TcpDiscoveryVmIpFinder()
-                        .setAddresses(listOf(
-                            "flights-0.flights.default.svc.cluster.local:47701..47705",
-                            "flights-1.flights.default.svc.cluster.local:47701..47705",
-                            "flights-2.flights.default.svc.cluster.local:47701..47705"
-                        )))
+                    .setIpFinder(TcpDiscoveryVmIpFinder().setAddresses(props.tcpDiscoveryAddresses))
             )
             .setCacheConfiguration(
                 CacheConfiguration<String, FindFlight>()

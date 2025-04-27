@@ -1,2 +1,8 @@
 cluster:
   quorum: 2
+
+node:
+  tcpDiscoveryAddresses:
+    - flights-0.flights.default.svc.cluster.local:47701..47705
+    - flights-1.flights.default.svc.cluster.local:47701..47705
+    - flights-2.flights.default.svc.cluster.local:47701..47705
