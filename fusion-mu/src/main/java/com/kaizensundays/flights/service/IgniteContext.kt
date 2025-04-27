@@ -43,7 +43,12 @@ open class IgniteContext {
                 TcpDiscoverySpi()
                     .setLocalPort(47701)
                     .setLocalPortRange(5)
-                    .setIpFinder(TcpDiscoveryVmIpFinder().setAddresses(listOf("127.0.0.1:47701..47705")))
+                    .setIpFinder(TcpDiscoveryVmIpFinder()
+                        .setAddresses(listOf(
+                            "flights-0.flights.default.svc.cluster.local:47701..47705",
+                            "flights-1.flights.default.svc.cluster.local:47701..47705",
+                            "flights-2.flights.default.svc.cluster.local:47701..47705"
+                        )))
             )
             .setCacheConfiguration(
                 CacheConfiguration<String, FindFlight>()

@@ -68,7 +68,7 @@ spec:
           ./init.sh
           echo "SERVICE_OPTS=$SERVICE_OPTS"
           sleep 30
-          java -Xmx256m $SERVICE_OPTS -cp @/app/jib-classpath-file com.kaizensundays.flights.service.Main
+          java $SERVICE_OPTS -cp @/app/jib-classpath-file com.kaizensundays.flights.service.Main
   restartPolicy: Never
   terminationGracePeriodSeconds: 10
 
