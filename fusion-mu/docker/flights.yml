@@ -30,20 +30,10 @@ spec:
           ports:
             - name: http
               containerPort: 7701
-            - name: discovery1
+            - name: discovery
               containerPort: 47701
-            - name: discovery2
-              containerPort: 47702
-            - name: discovery3
-              containerPort: 47703
-            - name: comm1
+            - name: comm
               containerPort: 47100
-            - name: comm2
-              containerPort: 47101
-            - name: comm3
-              containerPort: 47102
-            - name: comm4
-              containerPort: 47103
           env:
             - name: IGNITE_UPDATE_NOTIFIER
               value: "false"
@@ -85,11 +75,6 @@ spec:
                 --add-opens=java.base/java.text=ALL-UNNAMED
                 --add-opens=java.management/sun.management=ALL-UNNAMED
                 --add-opens=java.desktop/java.awt.font=ALL-UNNAMED
-
-
-
-
-
 
           command: ["sh", "-c"]
           args:
