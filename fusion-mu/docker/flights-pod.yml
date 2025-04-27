@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: flights
+  labels:
+    instance: flights
+spec:
+  containers:
+    - name: flights
+      image: localhost:32000/flights
+      imagePullPolicy: Always
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "1024Mi"
+        limits:
+          cpu: "2"
+          memory: "1024Mi"
+      ports:
+        - containerPort: 7701
+          name: http
+      env:
+        - name: IGNITE_UPDATE_NOTIFIER
+          value: "false"
+        - name: IGNITE_SKIP_CONFIGURATION_CONSISTENCY_CHECK
+          value: "true"
+        - name: SERVICE_OPTS
+          value: |
+            -Xmx512m
+            -Dproperties=node.yaml
+            -Dlogging.config=log4j2.xml
+            -Dlog4j.shutdownHookEnabled=false
+            -Dserver.port=7701
+            -Dspring.profiles.active=dev
+            -Djava.net.preferIPv4Stack=true
+            -Dreactor.netty.ioWorkerCount=4
+            -Dreactor.schedulers.defaultPoolSize=4
+            -Dcluster.quorum=2
+            --add-opens=java.base/jdk.internal.access=ALL-UNNAMED
+            --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED
+            --add-opens=java.base/sun.nio.ch=ALL-UNNAMED
+            --add-opens=java.base/sun.util.calendar=ALL-UNNAMED
+            --add-opens=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED
+            --add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED
+            --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED
+            --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED
+            --add-opens=java.base/java.io=ALL-UNNAMED
+            --add-opens=java.base/java.nio=ALL-UNNAMED
+            --add-opens=java.base/java.net=ALL-UNNAMED
+            --add-opens=java.base/java.util=ALL-UNNAMED
+            --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+            --add-opens=java.base/java.util.concurrent.locks=ALL-UNNAMED
+            --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED
+            --add-opens=java.base/java.lang=ALL-UNNAMED
+            --add-opens=java.base/java.lang.invoke=ALL-UNNAMED
+            --add-opens=java.base/java.math=ALL-UNNAMED
+            --add-opens=java.sql/java.sql=ALL-UNNAMED
+            --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+            --add-opens=java.base/java.time=ALL-UNNAMED
+            --add-opens=java.base/java.text=ALL-UNNAMED
+            --add-opens=java.management/sun.management=ALL-UNNAMED
+            --add-opens=java.desktop/java.awt.font=ALL-UNNAMED
+      command: ["sh", "-c"]
+      args:
+        - |
+          cd /opt
+          chmod ug+x *.sh
+          ./init.sh
+          echo "SERVICE_OPTS=$SERVICE_OPTS"
+          sleep 30
+          java -Xmx256m $SERVICE_OPTS -cp @/app/jib-classpath-file com.kaizensundays.flights.service.Main
+  restartPolicy: Never
+  terminationGracePeriodSeconds: 10
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: flights
+spec:
+  selector:
+    instance: flights
+  ports:
+    - name: http
+      port: 7701
+      nodePort: 30711
+  type: NodePort
