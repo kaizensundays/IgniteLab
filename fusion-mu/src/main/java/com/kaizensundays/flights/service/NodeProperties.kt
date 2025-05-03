@@ -12,4 +12,8 @@ class NodeProperties {
 
     var tcpDiscoveryAddresses = listOf<String>()
 
+    var kubeEnabled = false
+    var kubeNamespace = "default"
+    var kubeServiceName = "ignite"
+
 }
