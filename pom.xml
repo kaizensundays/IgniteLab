@@ -16,7 +16,7 @@
 
         <java.version>17</java.version>
         <kotlin.version>2.0.21</kotlin.version>
-        <spring-boot.version>3.4.4</spring-boot.version>
+        <spring-boot.version>3.4.5</spring-boot.version>
         <spring-cloud.version>2024.0.1</spring-cloud.version>
         <ignite.version>2.17.0</ignite.version>
     </properties>
