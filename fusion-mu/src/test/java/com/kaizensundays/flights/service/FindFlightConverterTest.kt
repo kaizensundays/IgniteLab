@@ -57,4 +57,6 @@ class FindFlightConverterTest : MuTestSupport() {
         assertEquals(3, map.mergeValues().size)
     }
 
+    // [user] -> (FindFlight) <-- List<FlightOption>
+
 }

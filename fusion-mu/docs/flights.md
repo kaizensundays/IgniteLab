@@ -21,6 +21,8 @@ classDiagram
 %% Messages
     class FindFlight {
     }
+    class FlightOption {
+    }
     class FlightsLocal {
     }
     class FlightInformationDistributionSystem {
@@ -43,9 +45,15 @@ classDiagram
     style User fill: #80aaff
     style Booking fill: #80aaff
 
-    style FindFlight fill: #80aaff
+    style FindFlight fill: #ecedbe
+    style FlightOption fill: #ecedbe
 
     style FlightsLocal fill: #ccffcc
     style FlightInformationDistributionSystem fill: #ccffcc
 
 ```
+
+Notes
+
+`[user] -> (FindFlight) <-- List<FlightOption>`
+
