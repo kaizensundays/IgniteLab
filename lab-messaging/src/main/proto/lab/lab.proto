@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.kaizensundays.lab.grpc";
+option java_outer_classname = "LabProto";
+option objc_class_prefix = "HLW";
+
+package lab;
+
+enum FlightStatus {
+  SCHEDULED = 0;
+  CANCELLED = 1;
+  DELAYED = 2;
+  ARRIVED = 3;
+}
+
+message Flight {
+  int32 id = 1;
+  int32 number = 2;
+  int32 airlineId = 3;
+  string departureAirport = 4;
+  string arrivalAirport = 5;
+  string departure = 6;
+  string arrival = 7;
+  FlightStatus status = 8;
+}
+
+message Price {
+  int32 value = 1;
+  int32 scale = 2;
+  string currency = 3;
+}
+
+enum CabinClass {
+  ECONOMY = 0;
+  BUSINESS = 1;
+}
+
+message FlightPrice {
+  int32 priceId = 1;
+  int32 flightId = 2;
+  CabinClass class = 3;
+  Price price = 4;
+  string currency = 5;
+}
+
+message FlightOption {
+  Flight message = 1;
+}
