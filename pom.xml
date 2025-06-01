@@ -25,9 +25,9 @@
     </properties>
 
     <modules>
+        <module>flights-messages</module>
         <module>fusion-eureka</module>
         <module>fusion-mu</module>
-        <module>lab-messaging</module>
     </modules>
 
     <dependencyManagement>
