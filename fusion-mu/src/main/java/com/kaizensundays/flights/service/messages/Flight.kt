@@ -1,5 +1,7 @@
 package com.kaizensundays.flights.service.messages
 
+import jakarta.persistence.Entity
+
 /**
  * Created: Saturday 10/30/2021, 1:25 PM Eastern Time
  *
