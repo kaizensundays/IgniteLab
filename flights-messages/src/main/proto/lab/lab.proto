@@ -7,6 +7,27 @@ option objc_class_prefix = "HLW";
 
 package lab;
 
+message FlightRoute {
+  int32 flightNumber = 1;
+  int32 airlineId = 2;
+  string departureAirport = 3;
+  string arrivalAirport = 4;
+}
+
+enum DayOfWeek {
+  UNSPECIFIED = 0; MON = 1; TUE = 2; WED = 3; THU = 4; FRI = 5; SAT = 6; SUN = 7;
+}
+
+message Schedule {
+  int32 scheduleId = 1;
+  FlightRoute flightRoute = 2;
+  string scheduledDeparture = 3;
+  string scheduledArrival = 4;
+  repeated DayOfWeek daysOfOperation = 5;
+  string effectiveFrom = 6;
+  string effectiveTo = 7;
+}
+
 enum FlightStatus {
   SCHEDULED = 0;
   CANCELLED = 1;
@@ -16,13 +37,10 @@ enum FlightStatus {
 
 message Flight {
   int32 id = 1;
-  int32 number = 2;
-  int32 airlineId = 3;
-  string departureAirport = 4;
-  string arrivalAirport = 5;
-  string departure = 6;
-  string arrival = 7;
-  FlightStatus status = 8;
+  int32 scheduleId = 2;
+  string departure = 3;
+  string arrival = 4;
+  FlightStatus status = 5;
 }
 
 message Price {
@@ -46,4 +64,5 @@ message FlightPrice {
 
 message FlightOption {
   Flight message = 1;
+  Price price = 2;
 }

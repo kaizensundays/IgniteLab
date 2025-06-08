@@ -1,7 +1,10 @@
 package com.kaizensundays.flights.service.messages
 
+import com.kaizensundays.lab.grpc.DayOfWeek
 import com.kaizensundays.lab.grpc.Flight
+import com.kaizensundays.lab.grpc.FlightRoute
 import com.kaizensundays.lab.grpc.FlightStatus
+import com.kaizensundays.lab.grpc.Schedule
 import org.junit.Test
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -37,12 +40,25 @@ class SomeTest {
         val departure = dtf.format(departureTime)
         val arrival = dtf.format(arrivalTime)
 
-        val flight = Flight.newBuilder()
-            .setId(1)
-            .setNumber(1)
+        val flightRoute = FlightRoute.newBuilder()
+            .setFlightNumber(1)
             .setAirlineId(1)
             .setDepartureAirport("SFO")
             .setArrivalAirport("LAS")
+            .build()
+
+        val schedule = Schedule.newBuilder()
+            .setScheduleId(1)
+            .setScheduledDeparture(departure)
+            .setScheduledArrival(arrival)
+            .addDaysOfOperation(DayOfWeek.MON)
+            .addDaysOfOperation(DayOfWeek.WED)
+            .addDaysOfOperation(DayOfWeek.FRI)
+            .build()
+
+        val flight = Flight.newBuilder()
+            .setId(1)
+            .setScheduleId(schedule.scheduleId)
             .setDeparture(departure)
             .setArrival(arrival)
             .setStatus(FlightStatus.SCHEDULED)
