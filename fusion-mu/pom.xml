@@ -81,6 +81,10 @@
             <artifactId>ignite-spring</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.ignite</groupId>
+            <artifactId>ignite-kubernetes</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
@@ -154,6 +158,41 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>jib</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <version>3.4.5</version>
+                        <configuration>
+                            <from>
+                                <image>bellsoft/liberica-openjdk-alpine:17</image>
+                            </from>
+                            <to>
+                                <image>Nevada:32000/flights</image>
+                            </to>
+                            <extraDirectories>
+                                <paths>
+                                    <path>
+                                        <from>docker</from>
+                                        <into>/opt</into>
+                                        <includes>init.sh,log4j2.xml,node.yaml</includes>
+                                    </path>
+                                    <path>
+                                        <from>docker</from>
+                                        <into>/root</into>
+                                        <includes>.bashrc</includes>
+                                    </path>
+                                </paths>
+                            </extraDirectories>
+                            <allowInsecureRegistries>true</allowInsecureRegistries>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>

@@ -1,0 +1,11 @@
+cluster:
+  quorum: 2
+
+node:
+  kubeEnabled: true
+  kubeNamespace: default
+  kubeServiceName: flights
+  tcpDiscoveryAddresses:
+    - flights-0.flights.default.svc.cluster.local:47701..47705
+    - flights-1.flights.default.svc.cluster.local:47701..47705
+    - flights-2.flights.default.svc.cluster.local:47701..47705

@@ -1,2 +1,7 @@
 cluster:
   quorum: 2
+
+node:
+  kubeEnabled: false
+  tcpDiscoveryAddresses:
+    - localhost:47701..47705
