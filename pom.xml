@@ -15,8 +15,8 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
         <java.version>17</java.version>
-        <kotlin.version>2.0.21</kotlin.version>
-        <spring-boot.version>3.4.4</spring-boot.version>
+        <kotlin.version>2.1.21</kotlin.version>
+        <spring-boot.version>3.4.6</spring-boot.version>
         <spring-cloud.version>2024.0.1</spring-cloud.version>
         <ignite.version>2.17.0</ignite.version>
     </properties>
@@ -108,6 +108,11 @@
             <dependency>
                 <groupId>org.apache.ignite</groupId>
                 <artifactId>ignite-indexing</artifactId>
+                <version>${ignite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ignite</groupId>
+                <artifactId>ignite-kubernetes</artifactId>
                 <version>${ignite.version}</version>
             </dependency>
 

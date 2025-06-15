@@ -1,15 +1,18 @@
 package com.kaizensundays.flights.service
 
-import com.kaizensundays.ignite.quorum.DefaultTopologyValidator
 import com.kaizensundays.flights.service.dao.FindFlightDao
 import com.kaizensundays.flights.service.messages.FindFlight
+import com.kaizensundays.ignite.quorum.DefaultTopologyValidator
 import org.apache.ignite.cache.CacheAtomicityMode
 import org.apache.ignite.configuration.CacheConfiguration
 import org.apache.ignite.configuration.IgniteConfiguration
 import org.apache.ignite.configuration.TopologyValidator
 import org.apache.ignite.events.EventType
+import org.apache.ignite.kubernetes.configuration.KubernetesConnectionConfiguration
 import org.apache.ignite.logger.slf4j.Slf4jLogger
 import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi
+import org.apache.ignite.spi.discovery.tcp.ipfinder.TcpDiscoveryIpFinder
+import org.apache.ignite.spi.discovery.tcp.ipfinder.kubernetes.TcpDiscoveryKubernetesIpFinder
 import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -35,7 +38,15 @@ open class IgniteContext {
     }
 
     @Bean
-    open fun ignite(findFlightCacheStore: FindFlightCacheStore, topologyValidator: TopologyValidator): IgniteFactoryBean {
+    open fun ignite(findFlightCacheStore: FindFlightCacheStore, topologyValidator: TopologyValidator, props: NodeProperties): IgniteFactoryBean {
+
+        val ipFinder: TcpDiscoveryIpFinder = if (props.kubeEnabled)
+            TcpDiscoveryKubernetesIpFinder(
+                KubernetesConnectionConfiguration()
+                    .setNamespace(props.kubeNamespace)
+                    .setServiceName(props.kubeServiceName)
+            ) else TcpDiscoveryVmIpFinder()
+            .setAddresses(props.tcpDiscoveryAddresses)
 
         val configuration = IgniteConfiguration()
             .setGridLogger(Slf4jLogger())
@@ -43,7 +54,7 @@ open class IgniteContext {
                 TcpDiscoverySpi()
                     .setLocalPort(47701)
                     .setLocalPortRange(5)
-                    .setIpFinder(TcpDiscoveryVmIpFinder().setAddresses(listOf("127.0.0.1:47701..47705")))
+                    .setIpFinder(ipFinder)
             )
             .setCacheConfiguration(
                 CacheConfiguration<String, FindFlight>()
