@@ -19,9 +19,13 @@
         <spring-boot.version>3.4.6</spring-boot.version>
         <spring-cloud.version>2024.0.1</spring-cloud.version>
         <ignite.version>2.17.0</ignite.version>
+        <grpc.version>1.62.2</grpc.version>
+        <protobuf.version>3.25.5</protobuf.version>
+        <protoc.version>3.25.5</protoc.version>
     </properties>
 
     <modules>
+        <module>flights-messages</module>
         <module>fusion-eureka</module>
         <module>fusion-mu</module>
     </modules>
@@ -51,6 +55,20 @@
                 <artifactId>kotlin-test</artifactId>
                 <version>${kotlin.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <!-- gRPC -->
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-bom</artifactId>
+                <version>${grpc.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java-util</artifactId>
+                <version>${protobuf.version}</version>
             </dependency>
 
             <!-- Mockito -->

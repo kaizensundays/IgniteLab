@@ -2,23 +2,28 @@ package com.kaizensundays.flights.service
 
 import com.kaizensundays.flights.service.dao.FindFlightDao
 import com.kaizensundays.flights.service.dao.FindFlightLoader
+import com.kaizensundays.flights.service.dao.FlightRepository
 import com.kaizensundays.flights.service.messages.AddAirline
 import com.kaizensundays.flights.service.messages.Event
 import com.kaizensundays.flights.service.messages.FindFlight
+import com.kaizensundays.flights.service.messages.FlightExt
 import com.kaizensundays.flights.service.messages.Journal
 import com.kaizensundays.ignite.quorum.NodeState
 import com.zaxxer.hikari.HikariDataSource
 import org.apache.ignite.Ignite
 import org.apache.ignite.IgniteCache
-import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
+import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.ImportResource
+import org.springframework.context.annotation.Primary
 import org.springframework.core.Ordered
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping
 import org.springframework.web.reactive.socket.server.support.WebSocketHandlerAdapter
@@ -35,6 +40,8 @@ import javax.sql.DataSource
 @EnableAutoConfiguration
 @ImportResource("classpath:service-config.xml")
 @EnableConfigurationProperties(NodeProperties::class)
+@EntityScan(basePackageClasses = [FlightExt::class])
+@EnableJpaRepositories(basePackageClasses = [FlightRepository::class])
 @Import(IgniteContext::class, JournalContext::class)
 open class ServiceContext {
 
@@ -48,7 +55,9 @@ open class ServiceContext {
     var pgPassword = ""
 
     @Bean
-    open fun dataSource(): DataSource {
+    @Primary
+    @Qualifier("pgDataSource")
+    open fun pgDataSource(): DataSource {
         val ds = HikariDataSource()
         ds.jdbcUrl = pgUrl
         ds.username = pgUser
@@ -58,7 +67,7 @@ open class ServiceContext {
     }
 
     @Bean
-    open fun jdbc(dataSource: DataSource) = NamedParameterJdbcTemplate(dataSource)
+    open fun jdbc(@Qualifier("pgDataSource") pgDataSource: DataSource) = NamedParameterJdbcTemplate(pgDataSource)
 
     @Bean
     open fun findFlightDao(jdbc: NamedParameterJdbcTemplate): FindFlightDao {
@@ -86,7 +95,7 @@ open class ServiceContext {
     }
 
     @Bean
-    open fun findFlightLoader(ignite: Ignite, dataSource: DataSource) = FindFlightLoader(ignite, dataSource)
+    open fun findFlightLoader(ignite: Ignite, @Qualifier("pgDataSource") pgDataSource: DataSource) = FindFlightLoader(ignite, pgDataSource)
 
     @Bean
     open fun handlerAdapter() = WebSocketHandlerAdapter()
