@@ -27,7 +27,7 @@
     <modules>
         <module>flights-messages</module>
         <module>fusion-eureka</module>
-        <module>fusion-mu</module>
+        <module>flights-service</module>
     </modules>
 
     <dependencyManagement>
