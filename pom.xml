@@ -2,8 +2,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.kaizensundays.particles</groupId>
-    <artifactId>fusion</artifactId>
+    <groupId>com.kaizensundays.ignitelab</groupId>
+    <artifactId>flights</artifactId>
     <name>IgniteLab</name>
     <version>0.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -19,11 +19,15 @@
         <spring-boot.version>3.4.6</spring-boot.version>
         <spring-cloud.version>2024.0.1</spring-cloud.version>
         <ignite.version>2.17.0</ignite.version>
+        <grpc.version>1.62.2</grpc.version>
+        <protobuf.version>3.25.5</protobuf.version>
+        <protoc.version>3.25.5</protoc.version>
     </properties>
 
     <modules>
-        <module>fusion-eureka</module>
-        <module>fusion-mu</module>
+        <module>flights-eureka</module>
+        <module>flights-messages</module>
+        <module>flights-service</module>
     </modules>
 
     <dependencyManagement>
@@ -51,6 +55,20 @@
                 <artifactId>kotlin-test</artifactId>
                 <version>${kotlin.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <!-- gRPC -->
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-bom</artifactId>
+                <version>${grpc.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java-util</artifactId>
+                <version>${protobuf.version}</version>
             </dependency>
 
             <!-- Mockito -->
